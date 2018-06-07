@@ -1,7 +1,7 @@
 # RFC
 RFC documents for the Tari protocol
 
-We're working hard on a draft proposal that we hope you will love. Keep an eye on this space. In the meantime, you can join the conversation in one of our [#conversation-channels]
+We're working hard on a draft proposal that we hope you will love. Keep an eye on this space. In the meantime, you can join the conversation in one of our [conversation channels](#conversation-channels)
 
 ## Conversation channels
 
