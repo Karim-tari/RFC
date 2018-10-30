@@ -148,11 +148,19 @@ contracts between issuer and nodes on the base layer can provide additional ince
 possibility. DAGs have the potential to provide reasonable speed and scalability whilst still offering true BFT 
 tolerance and thus promising a truly permissionless second layer. 
 
-_Other tools in our belt_:
-* 2nd layer nodes can use public/privtae keys to identify themselves. 
+_Other tools in our belt / possible features_:
+* 2nd layer nodes use public/private keys to identify themselves.
+* 2nd layer nodes post a bonded contract that they stand to lose if they get caught cheating
+* 2nd layer nodes can be compensated for this risk and the cost of operating a node by earning (tiny) fees for every 
+digital asset instruction (creation, modification) they execute.
+* Asset issuers can choose to nominate the nodes that get to execute their DA instructions (authorised nodes). This 
+corresponds to a permissioned system. These nodes would be trusted; the issuers would run these nodes themselves 
+or know who does.
+* Asset issuers could also issue assets in "permissionless" mode, presumably with a set of criteria for eligibility 
+(e.g. minimum size of bonded contract). A suitable consensus algorithm will need to be in place to allow this mode to
+ operate successfully.
 * We have a (non)central authority at our disposal: the base layer! The base layer could potentially be used as a 
 registrar for 2nd layer nodes, notary for bonded contracts and contract state and arbiter in case of disputes.
-
 
 ## Summary
 
@@ -165,7 +173,17 @@ Table 1 summarises the defining characteristics of the Tari network layers:
 | Security                             | High       | Mod (High w/ fallback) |
 | Decentralisation                     | High       | Low - Med              |
 | Processes Tari token tx              | Yes        | No                     |
-| Processes digital asset instructions | Only checkpoints | Yes                    |
+| Processes digital asset instructions | Only checkpoints | Yes              |
+
+# Topics for further discussion
+
+* Configurable privacy in digital Assets. What are some use cases for private DAs in a public network?
+* Which configuration of network overlay & consensus algorithm will be the simplest, and still work?
+* Start to think about how the 2nd layer and base layer interact.
+* Long-lived vs short-lived digital assets? How does this influence the incentive / funding model?
+
+
+
 
 
 
