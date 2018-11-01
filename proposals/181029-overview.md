@@ -74,7 +74,7 @@ two layers:
 ## The Base Layer
 
 The only system that we _know_ currently works as a base layer capable of delivering at least the first three must-have 
-properties above (security, decentralisation, ceonsorship resistance) is a token built on a proof-of-work-based 
+properties above (security, decentralisation, censorship resistance) is a token built on a proof-of-work-based 
 blockchain.
 
 Proof of X, where X is stake, spacetime, waffles, etc. is either totally unproven at best, or a house of cards at worst.
