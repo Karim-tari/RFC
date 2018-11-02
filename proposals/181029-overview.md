@@ -110,7 +110,7 @@ can definitely compromise on decentralisation, for example. In fact, in many way
 of assets (and their issuers) don't need or want _the entire network_ to validate every state change in their asset
 contracts.
 
-Once this trade-off is accepted, it the goals of speed and scalability that we set out above look far more achievable.
+Once this trade-off is accepted, the goals of speed and scalability that we set out above look far more achievable.
 
 Digital assets necessarily have _state_. Therefore the digital assets layer must have a means of synchronising and agreeing
 on state where asset state management is handled by multiple servers, (a.k.a. reaching consensus).
