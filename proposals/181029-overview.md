@@ -178,18 +178,4 @@ Table 1 summarises the defining characteristics of the Tari network layers:
 
 # Disclaimer
 
-_The purpose of this document is for information purposes only and may be subject to change or update without notice.  
-This document is largely the result of community discussions held on #tari-dev on FreeNode IRC and includes some 
-preliminary concepts that are in the process of being developed by the Tari community.  The release of 
-this document  is intended solely for review and discussion by the blockchain and cryptocurrency communities regarding 
-the technological merits of the potential system outlined herein._
-
-_This discussion document describes the high-level structure of  the Tari protocol. Anyone in the community is 
-welcome to contribute ideas, suggestions or constructive criticism can join the discussion in #tari-dev on Freenode IRC, 
-submit a new [issue] or contribute with a [pull request]_.
-
-
-
-
-[issue]: https://github.com/tari-project/RFC/issues
-[pull request]: https://github.com/tari-project/RFC/pulls
+This document is subject to the [disclaimer](../DISCLAIMER.md).
