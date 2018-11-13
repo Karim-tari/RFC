@@ -82,6 +82,8 @@ the network.
 _TODO_: Difference between pruned nodes and archival nodes, particularly WRT to syncing
 
 
+# Disclaimer
 
+This document is subject to the [disclaimer](../DISCLAIMER.md).
     
     
