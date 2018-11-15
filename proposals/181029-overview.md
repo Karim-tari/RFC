@@ -6,21 +6,21 @@
 The Tari protocol is all about *native digital assets*. So the architecture must support the particular requirements of
 a digital assets platform.
 
-### The Tari base token
-The Tari base token is a cryptocurrency that acts as the "lubricant" for the network's machinery. It is quite possible that 
-the user requirements/expectation for the Tari token and the assets themselves are different, precipitating different
+### The Tari base coin
+The Tari base coin is a cryptocurrency that acts as the "lubricant" for the network's machinery. It is quite possible that 
+the user requirements/expectation for the Tari coin and the assets themselves are different, precipitating different
 strategies for accommodating those needs.
 
-#### Base token requirements
+#### Base coin requirements
 
-Specifically, since the Tari token plays the role of money in many ways, the following are MUST HAVE features of the base token:
+Specifically, since the Tari coin plays the role of money in many ways, the following are MUST HAVE features of the base coin:
 
 * Security
 * Decentralised
 * Censorship resistance
 * Privacy
 
-In addition, the base token has the following NICE TO HAVE features, but not at the expense of the four primary
+In addition, the base coin has the following NICE TO HAVE features, but not at the expense of the four primary
 features:
 
 * Speed
@@ -46,7 +46,7 @@ The following features would be highly desirable and add to the Tari protocol's 
 * Configurable decentralisation (depending on the needs of the asset issuer). For example, a given issuer might want 
 only their node(s) be allowed to execute asset instructions (a permissioned system), whereas others will prefer 
 completely decentralised management of their assets (permissionless). 
- 
+
 ### Two layers 
 
 These broad requirements are in some ways mutually exclusive. Consider the distributed system trilemma of wanting a 
@@ -61,17 +61,17 @@ but only being able to pick at most two [[1]](https://en.wikipedia.org/wiki/CAP_
 This suggests the partitioning of the Tari network into
 two layers:
 
-* A base layer that provides a public ledger of base token transactions, secured by proof of work (maximise Security), and
+* A base layer that provides a public ledger of base coin transactions, secured by proof of work (maximise Security), and
 * A second layer that manages digital asset state that is very fast and cheap, but which can fall back on the base layer's security when required.
   
 ## The Base Layer
 
 The only system that we _know_ currently works as a base layer capable of delivering at least the first three must-have 
-properties above (security, decentralisation, censorship resistance) is a token built on a proof-of-work-based 
+properties above (security, decentralisation, censorship resistance) is a coin built on a proof-of-work-based 
 blockchain.
 
 Proof of X, where X is stake, spacetime, waffles, etc. is either totally unproven at best, or a house of cards at worst.
- 
+
 Looking at the _nice-to-have_ properties, one can go a long way to achieving a scalable blockchain by
 
 * Keeping as much data off of the blockchain to begin with
@@ -125,7 +125,7 @@ capabilities are obtained by querying peers.
 * Each node tries to maintain a full list of peers, along with information about which DAs each node is authorised to
  process instructions for. Queries about a specific DA can be routed directly to the node(s) that are tracking it. 
  (Lightning builds a full topology of the channel network)
- 
+
 Consensus options:
 * A full second-layer blockchain. This is probably overkill and unlikely to achieve the speed and cost targets we would 
 like, particularly if it's a proof-of-work blockchain.
@@ -165,7 +165,7 @@ Table 1 summarises the defining characteristics of the Tari network layers:
 | Scalability                          | Moderate   | Very high              |
 | Security                             | High       | Mod (High w/ fallback) |
 | Decentralisation                     | High       | Low - Med              |
-| Processes Tari token tx              | Yes        | No                     |
+| Processes Tari coin tx              | Yes        | No                     |
 | Processes digital asset instructions | Only checkpoints | Yes              |
 
 # Topics for further discussion
