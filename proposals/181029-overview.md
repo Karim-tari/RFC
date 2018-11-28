@@ -98,7 +98,7 @@ There are a few options for the proof of work mechanism for Tari:
 * Implement a hybrid PoW algorithm. This strategy has it's own set of problems _[citation needed]_.
 * [Merge mining](https://tari-labs.github.io/tari-university/merged-mining/merged-mining-scene/MergedMiningIntroduction.html).
   This approach is not without its own risks but offers the best trade-offs in terms of bootstrapping the
-  network and offers high levels of security from day one. 
+  network and could offer high levels of hash rate from day one if the parent blockchain miners opt in and high levels of 51% attack resistance if the resulting hash rate is sufficiently distributed among mining pools. 
   Given Tari's relationship with Monero, a merge-mined strategy with Monero makes the most sense.
   
 ## The second layer
@@ -150,6 +150,7 @@ or know who does.
 * Asset issuers could also issue assets in "permissionless" mode, presumably with a set of criteria for eligibility 
 (e.g. minimum size of bonded contract). A suitable consensus algorithm will need to be in place to allow this mode to
  operate successfully.
+* Asset issuers could also post a bonded contract to the 2nd layer nodes with value equal to the estimated life-time management costs of the DA
 * We have a (non)central authority at our disposal: the base layer! The base layer could potentially be used as a 
 registrar for 2nd layer nodes, notary for bonded contracts and contract state and arbiter in case of disputes.
 
