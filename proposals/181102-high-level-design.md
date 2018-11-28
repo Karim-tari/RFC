@@ -15,7 +15,7 @@ The Tari Base Layer has the following jobs:
   * Atomic swaps
   * Recording Digital asset state checkpoint summaries
   * Registering of 2nd-layer nodes and their bonded collateral
-  * Act as arbitrator in second-layer disputes
+  * Act as source of truth in second-layer disputes
   * Zero-knowledge contingent payments
  
 The Tari Base layer will be based on the MimbleWimble protocol and implemented as a proof-of-work-based blockchain. 
@@ -24,7 +24,7 @@ overview](./181029-overview.md).
 
 ## Monero merge mining
 
-Proof of work (PoW) plays three key functions in blockchains:
+Proof of work (PoW) plays two key functions in blockchains:
 * To act as a random Oracle
 * Make it very expensive to rewrite the transaction history
 
@@ -78,6 +78,9 @@ the network.
   * Block queries
   * Kernel data queries
   * New transaction requests
+  * 2nd layer merkle root checkpoint queries
+  * Registered 2nd layer nodes queries
+  * Persistent transaction data state queries
 
 _TODO_: Difference between pruned nodes and archival nodes, particularly WRT to syncing
 
