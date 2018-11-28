@@ -143,7 +143,7 @@ tolerance and thus promising a truly permissionless second layer.
 
 _Other tools in our belt / possible features_:
 * 2nd layer nodes use public/private keys to identify themselves.
-* 2nd layer nodes post a bonded contract that they stand to lose if they get caught cheating
+* 2nd layer nodes post a bonded contract that they stand to lose if they are shown to be bad actors.
 * 2nd layer nodes can be compensated for this risk and the cost of operating a node by earning (tiny) fees for every 
 digital asset instruction (creation, modification) they execute.
 * Asset issuers can choose to nominate the nodes that get to execute their DA instructions (authorised nodes). This 
