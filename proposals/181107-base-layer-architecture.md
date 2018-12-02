@@ -190,6 +190,27 @@ following functionality to achieve this:
 * Request `Transaction`s from peer
 * Send requested blocks to peer
 
+
+### Mining nodes
+
+Mining nodes perform the following:
+
+#### Compile new [Block] by subscribing to the `MessageBroker` as a `VerifiedTransactionSubscriber` 
+
+* Construct `BlockHeader` 
+
+* Construct Coinbase transaction
+
+* Add verified transactions to the block using a `TransactionSelectionPolicy` -- allowing miners to swap out their transaction selection strategy if they wish.
+
+* Perform cut-through between transactions where transactions would be cancelled out
+
+* Push the newly constructed block [Block] onto the internal `MessageBus`
+
+#### What else?
+
+ToDo
+
 ### The Mempool 
 
 The mempool is a database of all unconfirmed, VALID, transactions. The mempool is used in the following situations:
