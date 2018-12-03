@@ -1,15 +1,50 @@
 # High level design
 
-## Base layer responsibilities
+## Metadata
+
+This proposal is (tick applicable):
+
+* [x] A new feature
+* [ ] an extension to an existing feature
+* [ ] an alternative approach to an existing feature or proposal
+
+### Change log
+
+* 2018-12-03: Refactor to use proposal template
+* 2018-11-02: Initial submission
+
+### Status
+
+| Date       | Status    |
+|:-----------|:----------|
+| 2018-11-02 | Submitted |
+| 2018-11-03 | Review    |
+
+
+### Goals
+
+Identifies the key responsibilities of the Tari base layer, including its interaction with the digital assets network.
+
+### Assumptions
+
+1. The Tari base layer operates as a proof-of-work blockchain cryptocurrency, merge mined with Monero.
+2. The base layer protocol is based on Mimblewimble.
+3. A Tari digital assets layer exists as a second-layer operating on top of the base layer.
+
+### Abstract
+
+This proposal provides a list of functional requirements for the Tari base layer including mining, transaction and block
+validation and digital asset interactions.
+
+## Description
 
 The Tari Base Layer has the following jobs:
 
-* Record every [Tari coin](181105-terms.md#tari-coin) transfer in history in an immutable public ledger, or [blockchain](181105-terms
-.md#blockchain).
+* Record every [Tari coin](181105-terms.md#tari-coin) transfer in history in an immutable public ledger, or
+  [blockchain](./181105-terms.md#blockchain).
 * Allow users to prove ownership of Tari coins.
-* Reward miners for securing the network by issuing new coins in [Coinbase Transaction](./181105-terms
-.md#coinbase-transaction)s
-* Validate all Tari coin [transactions](181105-terms.md#transactions).
+* Reward miners for securing the network by issuing new coins in [Coinbase Transaction](./181105-terms.md#coinbase-transaction)s
+* Validate all Tari coin [transactions](./181105-terms.md#transaction).
 * Provide a set of higher-order transaction formats to facilitate:
   * Multi-signature transactions
   * Atomic swaps
@@ -22,7 +57,7 @@ The Tari Base layer will be based on the MimbleWimble protocol and implemented a
 The proof of work will be performed via merge mining with Monero. Arguments for this design are presented [in the 
 overview](./181029-overview.md).
 
-## Monero merge mining
+### Monero merge mining
 
 Proof of work (PoW) plays two key functions in blockchains:
 * To act as a random Oracle
@@ -31,7 +66,7 @@ Proof of work (PoW) plays two key functions in blockchains:
 [Merge mining](https://tari-labs.github.io/tari-university/merged-mining/merged-mining-scene/MergedMiningIntroduction.html)
  allows a blockchain to bootstrap hash rate from an established blockchain.
  
-### Standalone miners
+#### Standalone miners
  
 Monero-only miners _do not need to know about_ Tari. However, a Tari-enabled Monero merge mining implementation 
 requires the following:
@@ -46,7 +81,7 @@ requires the following:
   * Tari block propagation
   * Tari mempool module
   
-### Pool mining
+#### Pool mining
 
 The majority of Monero miners opt to use a mining pool rather than run a standalone mining operation. 
 
@@ -64,7 +99,7 @@ Our contributions would comprise
 * Write the stratum API implementation for clients
 * _TODO: What else?_
 
-## Full node software
+### Full node software
 
 A Tari full node performs the following critical jobs in maintaining the integrity of the Tari base layer.
 
