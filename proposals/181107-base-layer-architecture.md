@@ -1,8 +1,36 @@
 # Base Layer Architecture
 
-## Summary
+## Metadata
 
-The Tari base layer is based on the [MimbleWimble] protocol and is merge-mined with Monero.
+This proposal is (tick applicable):
+
+* [x] A new feature
+* [ ] an extension to an existing feature
+* [ ] an alternative approach to an existing feature or proposal
+
+### Change log
+
+* 2018-11-07: Submitted
+* 2018-12-02: Refactor to proposal template
+### Status
+
+| Date       | Status    |
+|:-----------|:----------|
+| 2018-11-07 | Submitted |
+| 2018-11-08 | Review    |
+
+
+
+### Goals
+
+1. Describe the main features of the base layer architecture
+
+### Assumptions
+
+1. The Tari base layer is based on the [MimbleWimble] protocol
+2. Proof-of-work is obtained via merge-mining with Monero.
+
+### Abstract
 
 Major base layer modules:
 
@@ -16,16 +44,18 @@ Support modules (infrastructure):
 * [Data storage](#data-storage).
 * [Cryptography](#cryptographic-module)
 
-## Infrastructure layer
+## Description
+
+
+### Infrastructure layer
 
 The infrastructure layer doesn't know anything about blockchains, transactions, or digital assets. This layer offers 
 a set of modules upon which we build the Tari infrastructure.
 
-### MessageBus
+#### MessageBus
 
-[ØMQ]((http://zguide.zeromq.org)) is a mature distributed communications framework. It's 
-very lightweight, is very fast and has excellent documentation. ØMQ forms the basis for peer-to-peer and inter-process
- messaging in Tari.
+[ØMQ](http://zguide.zeromq.org) is a mature distributed communications framework. It's very lightweight, is very fast
+and has excellent documentation. ØMQ forms the basis for peer-to-peer and inter-process messaging in Tari.
  
 Tari follows a loosely coupled, pub-sub message-based approach to message passing. 
 
@@ -102,7 +132,7 @@ transports, as well as external messaging using `tcp`.
 The MessageBus can also be augmented with 0MQ pipelines (using PUSH, PULL, ROUTER and DEALER sockets), which are 
 analogous to node.js stream pipes.
 
-### Data storage
+#### Data storage
 
 The DataStorage module presents an abstracted API for persisting data (presumably to disk). This allows Tari to swap 
 out the persistence implementation without affecting modules that depend on it.
@@ -114,7 +144,7 @@ it a natural choice as the default persistence solution for Tari.
 _TODO_:
 * Define the DataStorage API
 
-### Cryptographic module
+#### Cryptographic module
 
 The Tari crypto module provides an abstraction layer for:
 
@@ -136,7 +166,7 @@ Tari uses Curve25519 for EC cryptography. The [dalek libraries](https://github.c
 are a native Rust implementation. 
 
 
-## Domain layer modules
+### Domain layer modules
 
 The Domain layer houses the Tari "business logic". All protocol-related concepts and procedures are defined and 
 implemented here. The domain layer makes use of modules on the infrastructure layer to achieve its goals, but the 
@@ -144,11 +174,11 @@ infrastructure layer knows nothing about anything implemented here.
 
 This entails that any and all terms defined in the [Glossary] will have a software implementation here, and only here.
 
-### Base layer nodes
+#### Base layer nodes
 
 [Base node]s perform the following:
 
-#### Listen for new [Transaction] messages by subscribing to the `MessageBroker` as a `TransactionMessageSubscriber`
+##### Listen for new [Transaction] messages by subscribing to the `MessageBroker` as a `TransactionMessageSubscriber`
 
 * When a new message is received, check whether the `Transaction` is valid by 
   * verifying all signatures in the `Transaction`
@@ -158,7 +188,7 @@ This entails that any and all terms defined in the [Glossary] will have a softwa
   * Mark it as verified (is this how we want to handle this???)
   * Push the Verified Transaction onto the internal `MessageBus`
 
-#### Listen for new [Block] messages by subscribing to the `MessageBroker` as a `BlockMessageSubscriber`
+##### Listen for new [Block] messages by subscribing to the `MessageBroker` as a `BlockMessageSubscriber`
   
 * When a new block is received, check whether the block is valid by
   * Verifying the `BlockHeader`
@@ -170,16 +200,16 @@ This entails that any and all terms defined in the [Glossary] will have a softwa
   * add it to the chain tip
   * transmit the block to its peers
 
-#### Listen for new peer connection requests
+##### Listen for new peer connection requests
 
 When a new connection request is received, the node will check whether the peer has been blacklisted.
 If not, it will allow the connection and add the peer to the `Peers` list.
 
-#### Tell peers about new transactions
+##### Tell peers about new transactions
 
-#### Tell peers about new blocks
+##### Tell peers about new blocks
 
-#### Seeding and synchronizing
+##### Seeding and synchronizing
 
 When base nodes start up, they need to synchronize the blockchain with their peers. Nodes need to have the 
 following functionality to achieve this:
@@ -191,11 +221,11 @@ following functionality to achieve this:
 * Send requested blocks to peer
 
 
-### Mining nodes
+#### Mining nodes
 
 Mining nodes perform the following:
 
-#### Compile new [Block] by subscribing to the `MessageBroker` as a `VerifiedTransactionSubscriber` 
+##### Compile new [Block] by subscribing to the `MessageBroker` as a `VerifiedTransactionSubscriber`
 
 * Construct `BlockHeader` 
 
@@ -211,7 +241,7 @@ Mining nodes perform the following:
 
 ToDo
 
-### The Mempool 
+#### The Mempool
 
 The mempool is a database of all unconfirmed, VALID, transactions. The mempool is used in the following situations:
 * For mining nodes to select transactions to build new blocks
@@ -231,10 +261,8 @@ The mempool removes transactions from the mempool when:
 * A `NewVerifiedBlock` messages arrives. All transactions listen in the block are removed from the mempool.
 * Memory constraints are reached, specified in a `MempoolPolicy`. The oldest and/or transactions with lowest fees will
  be dropped according to the `MemPoolPolicy` in action.
- 
- 
 
-### Peer Broadcasting
+#### Peer Broadcasting
 
 A `PeerBroadcaster` listens for specific messages on the internal `MessageBus` and then relays them to peers using a 
 `PeerBroadcastStrategy` (e.g. gossip or flood). Separate `PeerBroadcaster` instances will propagate transactions 
@@ -244,7 +272,7 @@ _TODO_: Should syncing and seeding happen on dedicated ports, since they're not 
 same infrastructure? 
  
  
-### Transactions
+#### Transactions
 
 Transactions are what allows value transfer to occur in the Tari network. A full `Transaction` consists of
 
@@ -271,7 +299,7 @@ different types: `ValidatedTransaction`, `UnvalidatedTransaction` & `InvalidTran
 Rust's static typing to prevent, _at compile time_ any bugs that would let an invalid transaction into a block, for example. It's 
 pretty cool, but I wonder if it's worth the effort / results in too much repetition of code?
 
-### Blocks
+#### Blocks
 
 In a decentralised proof-of-work ledgers, transactions cannot be reliably and unambiguously ordered by timestamp. 
 Instead, Nakamoto consensus defines transaction ordering by block sequence. Miners collect transactions into blocks 
@@ -304,13 +332,13 @@ _Note_: The Grin implementation of MW splits transaction excesses into two value
 individual transactions of blocks by analyzing the inputs and outputs. We should implement this feature to improve 
 privacy. 
 
-### TransactionMessageSubscriber
+#### TransactionMessageSubscriber
 
 The `TransactionMessageSubscriber` is a simple service that connects to the `MessageBroker` and filters all Transaction 
 messages originating from the network. It deserialises the message into a `Transaction` object before handing it over
  to the connected client (typically a `BaseNode` instance). 
  
-### BlockMessageSubscriber
+#### BlockMessageSubscriber
 
 Similarly, the `BlockMessageSubscriber` is a simple service that connects to the `MessageBroker` and filters 
 all Block messages originating from the network. It deserialises the message into a `Block` object before handing it 
