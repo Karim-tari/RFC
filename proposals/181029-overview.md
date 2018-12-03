@@ -1,7 +1,48 @@
 # Architectural overview
 
+## Metadata
 
-## Some objectives to keep in mind
+This proposal is (tick applicable):
+
+* [x] A new feature
+* [ ] an extension to an existing feature
+* [ ] an alternative approach to an existing feature or proposal
+
+### Change log
+
+* 2018-12-02: Reformat for template
+* 2018-10-29: Initial submission
+
+### Status
+
+| Date       | Status    |
+|:-----------|:----------|
+| 2018-10-29 | Submitted |
+| 2018-10-30 | Review    |
+
+### Goals
+
+The aim of this proposal is to
+1. Provide a very high-level perspective for the moving parts involved in the Tari protocol.
+2. Present some trade-offs involved in the major technology decisions for the Tari protocol and posit some tentative solutions.
+
+### Assumptions
+
+1. We wish to optimise the Tari digital assets experience for speed, and the Tari coin experience for security.
+
+### Abstract
+
+A two-layer approach for Tari is proposed.
+
+The base layer deals with Tari coin transactions. It governed by a proof-of-work blockchain that is merged-mined with Monero.
+The base layer is highly secure, decentralised and relatively slow.
+
+The digital assets network runs on a second layer. It is built for liveness, speed and scalability at the expense of decentralisation.
+
+
+## Description
+
+### Some objectives to keep in mind
 
 The Tari protocol is all about *native digital assets*. So the architecture must support the particular requirements of
 a digital assets platform.
@@ -26,7 +67,7 @@ features:
 * Speed
 * Scalability
 
-### Digital assets
+#### Digital assets
 
 The Tari network will be used to create and manage digital assets. These digital assets will define and contain
 asset tokens. For example, in a ticketing context, an single event asset will contain many ticket tokens. The 
@@ -47,7 +88,7 @@ The following features would be highly desirable and would add to the Tari proto
 it such that only their node(s) be allowed to execute asset instructions (a permissioned system), whereas others might
 prefer completely decentralised management of their assets (permissionless).
 
-### Two layers 
+#### Two layers
 
 These broad requirements are in some ways mutually exclusive. Consider the distributed system trilemma of wanting a 
 network to be
@@ -63,7 +104,7 @@ This suggests partitioning the Tari network into two layers:
 * A base layer that provides a public ledger of base coin transactions, secured by proof of work (to maximise Security), and
 * A second layer that manages digital asset state that is very fast and cheap, but which can fall back on the base layer's security when required.
   
-## The Base Layer
+### The Base Layer
 
 The only system that we _know_ currently works as a base layer capable of delivering at least the first three must-have 
 properties above (security, decentralisation, censorship resistance) is a coin based on a proof-of-work blockchain.
@@ -85,7 +126,7 @@ In terms of privacy, there are several options to take:
 Weighing all these considerations up, it seems reasonable that MimbleWimble offers the best "bang for buck" in terms
 of the desired features of the base layer. To quote @fluffypony, "MW is the most sound, scalable 'base layer' protocol we know"
 
-## Proof of work
+### Proof of work
 
 There are a few options for the proof of work mechanism for Tari:
 
@@ -98,10 +139,12 @@ There are a few options for the proof of work mechanism for Tari:
 * Implement a hybrid PoW algorithm. This strategy has it's own set of problems _[citation needed]_.
 * [Merge mining](https://tari-labs.github.io/tari-university/merged-mining/merged-mining-scene/MergedMiningIntroduction.html).
   This approach is not without its own risks but offers the best trade-offs in terms of bootstrapping the
-  network and could offer high levels of hash rate from day one if the parent blockchain miners opt in and high levels of 51% attack resistance if the resulting hash rate is sufficiently distributed among mining pools. 
-  Given Tari's relationship with Monero, a merge-mined strategy with Monero makes the most sense.
+  network and could offer high levels of hash rate from day one if the parent blockchain miners opt in and high levels
+  of 51% attack resistance if the resulting hash rate is sufficiently distributed among mining pools.
+
+Given Tari's relationship with Monero, a merge-mined strategy with Monero makes the most sense.
   
-## The second layer
+### The second layer
 
 They key properties of the digital assets network are speed and scalability, without compromising on security. Here, we
 can definitely sacrifice decentralisation, for example. In fact, in many ways it's desirable, since the vast majority
@@ -154,7 +197,7 @@ or know who does.
 * We have a (non)central authority at our disposal: the base layer! The base layer could potentially be used as a 
 registrar for 2nd layer nodes, notary for bonded contracts and contract state and arbiter in case of disputes.
 
-## Summary
+### Summary
 
 Table 1 summarises the defining characteristics of the Tari network layers:
 
@@ -167,7 +210,7 @@ Table 1 summarises the defining characteristics of the Tari network layers:
 | Processes Tari coin tx               | Yes        | No                     |
 | Processes digital asset instructions | Only checkpoints | Yes              |
 
-# Topics for further discussion
+## Topics for further discussion
 
 * Configurable privacy in digital Assets. What are some use cases for private DAs in a public network?
 * Which configuration of network overlay & consensus algorithm will be the simplest, and still work?
