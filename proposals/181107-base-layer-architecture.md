@@ -12,14 +12,14 @@ This proposal is (tick applicable):
 
 * 2018-11-07: Submitted
 * 2018-12-02: Refactor to proposal template
+* 2018-12-04: Move detailed discussion to separate proposals
+
 ### Status
 
 | Date       | Status    |
 |:-----------|:----------|
 | 2018-11-07 | Submitted |
 | 2018-11-08 | Review    |
-
-
 
 ### Goals
 
@@ -40,98 +40,26 @@ Major base layer modules:
 * APIs for clients (wallets, block explorers and peers)
 
 Support modules (infrastructure):
-* A general peer-to-peer messaging service ([MessageBus](#messagebus)).
+* Inter-process messaging services.
+* Peer-to-peer messaging service.
 * [Data storage](#data-storage).
 * [Cryptography](#cryptographic-module)
 
 ## Description
 
-
 ### Infrastructure layer
 
-The infrastructure layer doesn't know anything about blockchains, transactions, or digital assets. This layer offers 
-a set of modules upon which we build the Tari infrastructure.
+The infrastructure layer doesn't know anything about blockchains, transactions, or digital assets. This layer offers a
+set of modules upon which the Tari infrastructure is built.
 
-#### MessageBus
+#### Inter-process communication (IPC)
 
-[ØMQ](http://zguide.zeromq.org) is a mature distributed communications framework. It's very lightweight, is very fast
-and has excellent documentation. ØMQ forms the basis for peer-to-peer and inter-process messaging in Tari.
- 
-Tari follows a loosely coupled, pub-sub message-based approach to message passing. 
+IPC should be thread-safe, fast, and asynchronous. It should allow different Tari submodules to run in different
+processes, or even different machines (if so desired) to maximise security.
 
-Messages in Tari are serialized into the binary [MessagePack](https://msgpack.org/index.html) format before being put
- onto the wire. 
- 
-Messages come from various sources - peers, other processes on the same machine, or clients accessing the APIs. The 
-data in the messages is invisible to MessageBus. All it sees is a string of bytes (that can be deserialized by serde 
-and the MessagePack library).
+[MessageBus](./181204-messagebus.md) is a proposal for a system that tries to achieve these goals.
 
-The MessageBus architecture follows a fan-in, fan-out pattern. An arbitrary number of MessagePublishers connect to a 
-single MessageBroker object that passes messages on to an arbitrary number of MessageSubscribers. MessagePublishers 
-are implementation-specific classes that, e.g. collect messages from peer nodes over I2P, or HTTP, or from a mining 
-pool over Stratum. The MessagePublishers MAY format messages if desired, but MUST deliver messages to the 
-MessageBroker in MessagePack format.
-
-Messages SHOULD have the MessageType field as the first field in its serialization.
-
-The MessageBroker MUST NOT modify the message.
-
-MessageSubscribers connects to the MessageBroker and MUST specify a filter for messages it is interested in. This is 
-achieved by calling the `setFilter` method every MessageBroker MUST implement, which sets the message filter. The 
-filter is based on the MessageType field which SHOULD be present as the first field in every message.
-
-MessageSubscribers MUST subscribe to either one message type, or all messages.
-
-The MessageBroker MUST send every message to every MessageSubscriber that has a filter on for that type of message. 
-
-The basic structure looks as follows:
-
-```text
-         Stratum                  Peer Nodes                REST API
-            +                         +                        +
-            |                         |                        |
-            |                         |                        |
-  +---------+---------+     +---------+---------+     +--------+----------+
-  |  MessagePublisher |     |  MessagePublisher |     |  MessagePublisher |
-  +-------------------+     +-------------------+     +-------------------+
-  |       PUSH        |     |        PUSH       |     |       PUSH        |
-  +---------+---------+     +---------+---------+     +---------+---------+
-            |                         |                         |
-            |                         |                         |
-            |                         |                         |
-            |                         |                         |
-            |                         |                         |
-            |                         |                         |
-            |               +---------v--------+                |
-            +--------------->       PULL       <----------------+
-                            +------------------+
-                            |   MessageBroker  |
-                            +------------------+
-                            |       PUB        |
-           +----------------+--------+---------+---------------+
-           |                         |                         |
-           |                         |                         |
-           |                         |                         |
-           |                         |                         |
-+----------v--------+      +---------v---------+     +---------v---------+
-|        SUB        |      |        SUB        |     |        SUB        |
-+-------------------+      +-------------------+     +-------------------+
-| MessageSubscriber |      | MessageSubscriber |     | MessageSubscriber |
-+-------------------+      +-------------------+     +-------------------+
-```
-
-The MessageBus is constructed in a very general way, so that the same infrastructure can be used for both base and 
-second layer messaging.
-
-The MessageBus is locked into using ØMQ, but Messages implement the `Serializable` trait from serde, so that the binary
- protocol can be swapped out if desired.
-
-The MessageBus can be used for both internal (inter-thread or in-process) messaging using `ipc` or `inproc` 
-transports, as well as external messaging using `tcp`. 
-
-The MessageBus can also be augmented with 0MQ pipelines (using PUSH, PULL, ROUTER and DEALER sockets), which are 
-analogous to node.js stream pipes.
-
+[ØMQ](http://zguide.zeromq.org)
 #### Data storage
 
 The DataStorage module presents an abstracted API for persisting data (presumably to disk). This allows Tari to swap 
