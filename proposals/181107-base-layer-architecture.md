@@ -69,8 +69,15 @@ out the persistence implementation without affecting modules that depend on it.
 and is used as the persistent storage layer in Monero and Grin, among others. LMDB's success in these projects make 
 it a natural choice as the default persistence solution for Tari.
 
-_TODO_:
-* Define the DataStorage API
+[LMDB Datastore](./181204-lmdb-datastore.md) is a proposal for implementing the datastore API using LMDB.
+
+Domain modules that will make use of the Datastore are:
+* Block storage
+* Unspent transaction output storage
+* Peer information (full node)
+* Peer information (digital asset network)
+* Wallet data (keys, transactions and output commitments)
+* Digital Asset data (keys, metadata, host information)
 
 #### Cryptographic module
 
@@ -81,11 +88,13 @@ The Tari crypto module provides an abstraction layer for:
 * Signature verification
 * Signature aggregation (MuSig)
 * Multisig operations
-* Commitments (Pederson)
+* Commitments (Pedersen, ELGamal etc)
 * Threshold cryptography
 * Range Proofs
 * Bulletproofs
 * Symmetric encryption
+* Zero-knowledge contingent swaps
+* Scriptless script support
 
 The crypto API is presented as a collection of traits so that the backend (Curve25519) can be swapped out without 
 impacting any modules making use of the module. 
