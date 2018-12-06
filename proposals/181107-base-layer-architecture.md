@@ -286,8 +286,8 @@ over to the connected client.
 
 This document is subject to the [disclaimer](../DISCLAIMER.md).
 
-[Glossary]: ./181105-terms.md "Glossary"
-[MimbleWimble]: ./181105-terms.md#mimblewimble
-[Base node]: ./181105-terms.md#base-node
-[transaction]: ./181105-terms.md#transaction
-[block]: ./181105-terms.md#block
+[Glossary]: /Glossary.md "Glossary"
+[MimbleWimble]: /Glossary.md#mimblewimble
+[Base node]: /Glossary.md#base-node
+[transaction]: /Glossary.md#transaction
+[block]: /Glossary.md#block

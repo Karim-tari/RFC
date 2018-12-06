@@ -40,11 +40,11 @@ validation and digital asset interactions.
 
 The Tari Base Layer has the following jobs:
 
-* Record every [Tari coin](181105-terms.md#tari-coin) transfer in history in an immutable public ledger, or
-  [blockchain](./181105-terms.md#blockchain).
+* Record every [Tari coin](/Glossary.md#tari-coin) transfer in history in an immutable public ledger, or
+  [blockchain](/Glossary.md#blockchain).
 * Allow users to prove ownership of Tari coins.
-* Reward miners for securing the network by issuing new coins in [Coinbase Transaction](./181105-terms.md#coinbase-transaction)s
-* Validate all Tari coin [transactions](./181105-terms.md#transaction).
+* Reward miners for securing the network by issuing new coins in [Coinbase Transaction](/Glossary.md#coinbase-transaction)s
+* Validate all Tari coin [transactions](/Glossary.md#transaction).
 * Provide a set of higher-order transaction formats to facilitate:
   * Multi-signature transactions
   * Atomic swaps
