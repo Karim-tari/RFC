@@ -130,6 +130,7 @@ This entails that any and all terms defined in the [Glossary] will have a softwa
 * When a new block is received, check whether the block is valid by
   * Verifying the `BlockHeader`
   * Verifying the `ProofOfWork`
+  * Verifying the block weight (proxy for block size)
   * Verifying every `Transaction` in the block
   * Verifying that the block is being added to the chain tip 
 * If the block is not being added to the chain tip, but is otherwise valid, check for chain reorgs
