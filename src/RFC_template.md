@@ -4,8 +4,6 @@
 
 ![status: raw](theme/images/status-raw.svg)
 
-**Status**: raw
-
 **Maintainer(s)**: <Maintainer name> <github username>
 
 # License
